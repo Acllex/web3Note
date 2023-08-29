@@ -1,7 +1,7 @@
 .DS_Store
 node_modules
 /dist
-
+/note-contract/keys.json
 
 # local env files
 .env.local

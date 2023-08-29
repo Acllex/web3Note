@@ -1,17 +1,20 @@
 // SPDX-License-Identifier: MIT
 // Tells the Solidity compiler to compile only from v0.8.13 to v0.9.0
 pragma solidity ^0.8.13;
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721URIStorageUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+// import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract NoteContract is ERC721URIStorage, Ownable {
-    constructor() ERC721("NoteContract", "NC") {}
+contract NoteContract is Initializable, ERC721URIStorageUpgradeable {
     using Counters for Counters.Counter;
     // 记录笔记数量
     Counters.Counter private _listedItems;
     // 记录笔记tokenId
     Counters.Counter private _tokenIds;
+    function initialize() initializer public {
+        __ERC721_init("web3Note", "NC");
+     }
     struct Note {
         uint tokenId;
         uint creatTime;
@@ -53,12 +56,17 @@ contract NoteContract is ERC721URIStorage, Ownable {
         }
         return items;
     }
-
+    // 销毁笔记
+    function burnTokenId(uint tokenId) public {
+        require(msg.sender == _noteList[tokenId].creator, "You are not the creator of this note");
+        _burn(tokenId);
+    }
     function _beforeTokenTransfer(address from, address to, uint tokenId,uint256 batchSize) internal virtual override{
         super._beforeTokenTransfer(from, to, tokenId, batchSize);
-        if(to == address(0)){
-            // _removeTokenFromAllTokensEnumeration(tokenId);
-        } else if (to != from) {
+        if (from!=address(0)&&from != to) {
+            _removeTokenFromOwnerEnumeration(from, tokenId);
+        }
+        if (to!=address(0)&&to != from) {
             _addTokenToOwnerEnumeration(to, tokenId);
         }
     }
@@ -70,5 +78,28 @@ contract NoteContract is ERC721URIStorage, Ownable {
         _ownedTokens[to][length] = tokenId;
         // tokenId在to拥有的note数组中的index
         _idToOwnerIndex[tokenId] = length;
+    }
+    // 将tokenId从所有者的枚举中删除
+    function _removeTokenFromOwnerEnumeration(address from, uint tokenId) private {
+        // from拥有的笔记数量
+        uint lastTokenIndex = balanceOf(from) - 1;
+        // tokenId在from拥有的笔记数组中的index
+        uint tokenIndex = _idToOwnerIndex[tokenId];
+        /**
+         * 如果要删除的toukeId不是from拥有的笔记数组中的最后一个笔记
+         * 则把from拥有的笔记数组中的最后一个笔记移到要删除的tokenId的位置
+         */
+        if(tokenIndex != lastTokenIndex){
+            // from拥有的笔记数组中的最后一个笔记的tokenId
+            uint lastTokenId = _ownedTokens[from][lastTokenIndex];
+            // 将from拥有的笔记数组中的最后一个笔记移到要删除的tokenId的位置
+            _ownedTokens[from][tokenIndex] = lastTokenId;
+            // 将要最后的TokenId和index对应起来
+            _idToOwnerIndex[lastTokenId] = tokenIndex;
+        }
+        // 删除tokenId在from拥有的NFT数组中的index
+        delete _idToOwnerIndex[tokenId];
+        // 删除from拥有的NFT数组中的最后一个笔记
+        delete _ownedTokens[from][lastTokenIndex];
     }
 }

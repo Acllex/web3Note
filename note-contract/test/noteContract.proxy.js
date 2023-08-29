@@ -1,11 +1,11 @@
 /* eslint-disable no-undef */
+const { deployProxy } = require('@openzeppelin/truffle-upgrades');
 const NoteContract = artifacts.require("NoteContract");
 
-
-contract("NoteContract", (accounts) => {
+contract("NoteContract(proxy)", (accounts) => {
     let noteContract;
     before(async () => {
-        noteContract = await NoteContract.deployed();
+        noteContract = await deployProxy(NoteContract);
     });
 
     describe("deployment", async () => {
@@ -19,7 +19,7 @@ contract("NoteContract", (accounts) => {
 
         it("has a name", async () => {
             const name = await noteContract.name();
-            assert.equal(name, "NoteContract");
+            assert.equal(name, "web3Note");
         });
 
         it("has a symbol", async () => {
@@ -65,7 +65,15 @@ contract("NoteContract", (accounts) => {
         });
         it("获取笔记列表", async () => {
             const noteList = await noteContract.getOwnedNotes({ from: accounts[0] })
+            // console.log(noteList)
             assert.equal(noteList.length, 2, '获取笔记列表失败')
+        })
+    })
+    describe('销毁笔记', async () => {
+        it("销毁笔记", async () => {
+            await noteContract.burnTokenId(1, { from: accounts[0] })
+            const noteList = await noteContract.getOwnedNotes({ from: accounts[0] })
+            assert.equal(noteList.length, 1, '销毁笔记失败')
         })
     })
 })
