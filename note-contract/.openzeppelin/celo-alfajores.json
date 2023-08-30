@@ -24,6 +24,16 @@
       "address": "0xE92E1d8c619F15Ef3198305547C2497133a7B85f",
       "txHash": "0x3b2da4268d8a6006a7264d079e8602dbc3504ae57208e20865bf3fa796499ef3",
       "kind": "transparent"
+    },
+    {
+      "address": "0xf3DbBEc44981ea308C3Ab7f86834797DD1C283d7",
+      "txHash": "0xf100e956267abc60f188fa1597681f6641dd09fe9bac0afe9aa93eed0b98cef8",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xd24DBFB0E49ba80C0e7C3AB90e7C1E605f261816",
+      "txHash": "0xb30b3e77ccdba060786e313a736662cc3375acf9613f8ac7950c10672a9658c8",
+      "kind": "transparent"
     }
   ],
   "impls": {
@@ -789,6 +799,205 @@
           },
           "t_struct(Note)3579_storage": {
             "label": "struct NoteContractV2.Note",
+            "members": [
+              {
+                "label": "tokenId",
+                "type": "t_uint256"
+              },
+              {
+                "label": "creator",
+                "type": "t_address"
+              }
+            ]
+          },
+          "t_address": {
+            "label": "address"
+          },
+          "t_mapping(t_address,t_mapping(t_uint256,t_uint256))": {
+            "label": "mapping(address => mapping(uint256 => uint256))"
+          },
+          "t_mapping(t_uint256,t_uint256)": {
+            "label": "mapping(uint256 => uint256)"
+          },
+          "t_mapping(t_uint256,t_string_storage)": {
+            "label": "mapping(uint256 => string)"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]"
+          },
+          "t_mapping(t_uint256,t_address)": {
+            "label": "mapping(uint256 => address)"
+          },
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)"
+          },
+          "t_mapping(t_address,t_mapping(t_address,t_bool))": {
+            "label": "mapping(address => mapping(address => bool))"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)"
+          },
+          "t_array(t_uint256)44_storage": {
+            "label": "uint256[44]"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]"
+          },
+          "t_uint8": {
+            "label": "uint8"
+          }
+        }
+      }
+    },
+    "081a1fad0ec4168e8e1b2c5b5897583cd77e541478ac54b2ecc53f96fac51795": {
+      "address": "0x8f29Efab4504635c08BCcf9B4A1584a91FdbFd95",
+      "txHash": "0x85cabe03118764e8f8dc389bc091505a0c4e9c5ed8297ab772c9e491c8ecae95",
+      "layout": {
+        "solcVersion": "0.8.13",
+        "storage": [
+          {
+            "contract": "Initializable",
+            "label": "_initialized",
+            "type": "t_uint8",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:63",
+            "retypedFrom": "bool"
+          },
+          {
+            "contract": "Initializable",
+            "label": "_initializing",
+            "type": "t_bool",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:68"
+          },
+          {
+            "contract": "ContextUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)50_storage",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\utils\\ContextUpgradeable.sol:36"
+          },
+          {
+            "contract": "ERC165Upgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)50_storage",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\utils\\introspection\\ERC165Upgradeable.sol:41"
+          },
+          {
+            "contract": "ERC721Upgradeable",
+            "label": "_name",
+            "type": "t_string_storage",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\token\\ERC721\\ERC721Upgradeable.sol:25"
+          },
+          {
+            "contract": "ERC721Upgradeable",
+            "label": "_symbol",
+            "type": "t_string_storage",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\token\\ERC721\\ERC721Upgradeable.sol:28"
+          },
+          {
+            "contract": "ERC721Upgradeable",
+            "label": "_owners",
+            "type": "t_mapping(t_uint256,t_address)",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\token\\ERC721\\ERC721Upgradeable.sol:31"
+          },
+          {
+            "contract": "ERC721Upgradeable",
+            "label": "_balances",
+            "type": "t_mapping(t_address,t_uint256)",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\token\\ERC721\\ERC721Upgradeable.sol:34"
+          },
+          {
+            "contract": "ERC721Upgradeable",
+            "label": "_tokenApprovals",
+            "type": "t_mapping(t_uint256,t_address)",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\token\\ERC721\\ERC721Upgradeable.sol:37"
+          },
+          {
+            "contract": "ERC721Upgradeable",
+            "label": "_operatorApprovals",
+            "type": "t_mapping(t_address,t_mapping(t_address,t_bool))",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\token\\ERC721\\ERC721Upgradeable.sol:40"
+          },
+          {
+            "contract": "ERC721Upgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)44_storage",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\token\\ERC721\\ERC721Upgradeable.sol:477"
+          },
+          {
+            "contract": "ERC721URIStorageUpgradeable",
+            "label": "_tokenURIs",
+            "type": "t_mapping(t_uint256,t_string_storage)",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\token\\ERC721\\extensions\\ERC721URIStorageUpgradeable.sol:22"
+          },
+          {
+            "contract": "ERC721URIStorageUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)49_storage",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\token\\ERC721\\extensions\\ERC721URIStorageUpgradeable.sol:86"
+          },
+          {
+            "contract": "NoteContractV3",
+            "label": "_listedItems",
+            "type": "t_struct(Counter)3119_storage",
+            "src": "..\\project:\\contracts\\NoteContractV3.sol:12"
+          },
+          {
+            "contract": "NoteContractV3",
+            "label": "_tokenIds",
+            "type": "t_struct(Counter)3119_storage",
+            "src": "..\\project:\\contracts\\NoteContractV3.sol:14"
+          },
+          {
+            "contract": "NoteContractV3",
+            "label": "_usedTokenURIs",
+            "type": "t_mapping(t_string_memory_ptr,t_bool)",
+            "src": "..\\project:\\contracts\\NoteContractV3.sol:24"
+          },
+          {
+            "contract": "NoteContractV3",
+            "label": "_noteList",
+            "type": "t_mapping(t_uint256,t_struct(Note)3939_storage)",
+            "src": "..\\project:\\contracts\\NoteContractV3.sol:27"
+          },
+          {
+            "contract": "NoteContractV3",
+            "label": "_ownedTokens",
+            "type": "t_mapping(t_address,t_mapping(t_uint256,t_uint256))",
+            "src": "..\\project:\\contracts\\NoteContractV3.sol:28"
+          },
+          {
+            "contract": "NoteContractV3",
+            "label": "_idToOwnerIndex",
+            "type": "t_mapping(t_uint256,t_uint256)",
+            "src": "..\\project:\\contracts\\NoteContractV3.sol:31"
+          }
+        ],
+        "types": {
+          "t_struct(Counter)3119_storage": {
+            "label": "struct Counters.Counter",
+            "members": [
+              {
+                "label": "_value",
+                "type": "t_uint256"
+              }
+            ]
+          },
+          "t_uint256": {
+            "label": "uint256"
+          },
+          "t_mapping(t_string_memory_ptr,t_bool)": {
+            "label": "mapping(string => bool)"
+          },
+          "t_string_storage": {
+            "label": "string"
+          },
+          "t_bool": {
+            "label": "bool"
+          },
+          "t_mapping(t_uint256,t_struct(Note)3939_storage)": {
+            "label": "mapping(uint256 => struct NoteContractV3.Note)"
+          },
+          "t_struct(Note)3939_storage": {
+            "label": "struct NoteContractV3.Note",
             "members": [
               {
                 "label": "tokenId",
