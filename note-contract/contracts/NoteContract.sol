@@ -17,8 +17,6 @@ contract NoteContract is Initializable, ERC721URIStorageUpgradeable {
      }
     struct Note {
         uint tokenId;
-        uint creatTime;
-        uint updateTime;
         address creator;
     }
     // 保存所有的tokenURI, 用于判断是否已经存在
@@ -29,7 +27,7 @@ contract NoteContract is Initializable, ERC721URIStorageUpgradeable {
     mapping(address => mapping(uint => uint)) private _ownedTokens;
     // 所有者拥有的tokenId和对应下标
     mapping(uint => uint) private _idToOwnerIndex;
-    event NoteCreated(uint tokenId, uint creatTime, uint updateTime, address creator);
+    event NoteCreated(uint tokenId, address creator);
     // 创建笔记
     function mintNote(string memory tokenURI) public returns (uint) {
         require(!_usedTokenURIs[tokenURI], "This tokenURI has been used");
@@ -40,10 +38,11 @@ contract NoteContract is Initializable, ERC721URIStorageUpgradeable {
         _safeMint(msg.sender, newItemId);
         _setTokenURI(newItemId, tokenURI);
         _usedTokenURIs[tokenURI] = true;
-        _noteList[newItemId] = Note(newItemId,block.timestamp,block.timestamp, msg.sender);
-        emit NoteCreated(newItemId, block.timestamp, block.timestamp, msg.sender);
+        _noteList[newItemId] = Note(newItemId, msg.sender);
+        emit NoteCreated(newItemId, msg.sender);
         return newItemId;
     }
+
     // 获取个人笔记列表
     function getOwnedNotes() public view returns (Note[] memory) {
         uint ownedNotesCount = balanceOf(msg.sender);
